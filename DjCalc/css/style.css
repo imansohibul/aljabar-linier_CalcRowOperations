@@ -25,6 +25,21 @@
 
 .card-size {
   margin: auto;
-  padding-left: 25%;
-  padding-right: 25%;
+  padding-left: 35%;
+  padding-right: 35%;
+}
+
+.content {
+	overflow: hidden;
+	width: 100%;
+}
+
+.left {
+	width: 45%;
+	float: left;
+}
+
+.right {
+	width: 45%;
+	float: right;
 }

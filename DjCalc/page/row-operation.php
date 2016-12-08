@@ -13,7 +13,8 @@
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/bootstrap-flex.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
-    <?php include '..php/RowOperation.php'; ?>
+    <?php include '../php/RowOperation.php'; ?>
+
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -25,6 +26,8 @@
     <link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
 <body>
+
+
     <header class="navbar navbar-inverse navbar-fixed-top wet-asphalt" role="banner">
         <div class="container">
             <div class="navbar-header">
@@ -46,41 +49,61 @@
         </div>
     </header><!--/header-->
 
+
 <?php
-          $matrix = new RowOperation(3,3);
-          for ($i=0; $i < $matrix->sizeRow() ; $i++) {
-            for ($j=0; $j < $matrix->sizeColumn(); $j++) {
-              echo $matrix->getElement($i,$j);
-            }
-            echo "<br>";
-          }
+          $matrix = new RowOperation(3,4);
+
 ?>
+
 <div class="card-size">
   <div class="card">
       <div class="card-header">
-          <h5 class="card-title">STEP 1</h5>
+          <h5 class="card-title text-sm-center">STEP 2</h5>
       </div>
       <div class="card-block">
         <div class="card-title text-sm-center">
             <strong>Special title treatment</strong>
         </div>
-             <div>
-                <table class="matrix">
-                    <tr>
-                        <td>1+3i</td>
-                        <td>2+i</td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td>4-3i</td>
-                        <td>5</td>
-                        <td>-2</td>
-                    </tr>
-                </table>
-            </div>
+        <div class="row">
+            <div class="col-xs">
+            <table width="100%">
+              <tr>
+                <td  style="padding:1%;"><?php $matrix->showBfMatrix();?></td>
+                <td  width="20%"  class="text-sm-center"><img src="../images/feature/arrow-right.png" width="32%" height="8%" style="opacity: 0.5;"></img></td>
+                <td  style="padding:1%;"><?php $matrix->showAfMatrix();?></td>
+              </tr>
+            </table>
+           </div>
+        </div>
         </div>
     </div>
 </div>
+
+
+<div class="card-size">
+  <div class="card">
+      <div class="card-header">
+          <h5 class="card-title text-sm-center">STEP 2</h5>
+      </div>
+      <div class="card-block">
+        <div class="card-title text-sm-center">
+            <strong>Special title treatment</strong>
+        </div>
+        <div class="row">
+            <div class="col-xs">
+            <table width="100%">
+              <tr>
+                <td  style="padding:1%;"><?php $matrix->showBfMatrix();?></td>
+                <td  width="20%"  class="text-sm-center"><img src="../images/feature/arrow-right.png" width="32%" height="8%" style="opacity: 0.5;"></img></td>
+                <td  style="padding:1%;"><?php $matrix->showAfMatrix();?></td>
+              </tr>
+            </table>
+           </div>
+        </div>
+        </div>
+    </div>
+</div>
+
 
     <footer id="footer" class="midnight-blue">
         <div class="container">
