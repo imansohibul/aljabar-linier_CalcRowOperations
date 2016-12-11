@@ -43,3 +43,11 @@
 	width: 45%;
 	float: right;
 }
+
+.to-string {
+
+}
+
+#small-string {
+  font-size: 0pt;
+}

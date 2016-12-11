@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Dj Calc | Liniear Algebra Toolkit</title>
+
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../css/prettyPhoto.css" rel="stylesheet">
@@ -13,7 +14,8 @@
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/bootstrap-flex.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
-    <?php include '../php/RowOperation.php'; ?>
+
+    <?php include '../lib/RowOperation.php'; ?>
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -49,28 +51,32 @@
         </div>
     </header><!--/header-->
 
+        <!-- You only need this form and the form-basic.css -->
 
 <?php
-          $matrix = new RowOperation(3,4);
-
+          $matrix = new RowOperation(3,4,0);
+          $matrix->initMatrix();
+          $matrix->startGaussJordan();
+          $step=$matrix->getStepOperation() ;
 ?>
 
+<?php for($i=0; $i < count($step); $i++):?>
 <div class="card-size">
   <div class="card">
       <div class="card-header">
-          <h5 class="card-title text-sm-center">STEP 2</h5>
+          <h5 class="card-title text-sm-center"><?php $counter=$i+1;echo 'STEP '.$counter ;?></h5>
       </div>
       <div class="card-block">
         <div class="card-title text-sm-center">
-            <strong>Special title treatment</strong>
+            <strong><?php echo $step[$i]->toString();?></strong>
         </div>
         <div class="row">
             <div class="col-xs">
             <table width="100%">
               <tr>
-                <td  style="padding:1%;"><?php $matrix->showBfMatrix();?></td>
+                <td  style="padding:1%;"><?php $step[$i]->showBfMatrix();?> </td>
                 <td  width="20%"  class="text-sm-center"><img src="../images/feature/arrow-right.png" width="32%" height="8%" style="opacity: 0.5;"></img></td>
-                <td  style="padding:1%;"><?php $matrix->showAfMatrix();?></td>
+                <td  style="padding:1%;"><?php $step[$i]->showAfMatrix();?></td>
               </tr>
             </table>
            </div>
@@ -78,32 +84,7 @@
         </div>
     </div>
 </div>
-
-
-<div class="card-size">
-  <div class="card">
-      <div class="card-header">
-          <h5 class="card-title text-sm-center">STEP 2</h5>
-      </div>
-      <div class="card-block">
-        <div class="card-title text-sm-center">
-            <strong>Special title treatment</strong>
-        </div>
-        <div class="row">
-            <div class="col-xs">
-            <table width="100%">
-              <tr>
-                <td  style="padding:1%;"><?php $matrix->showBfMatrix();?></td>
-                <td  width="20%"  class="text-sm-center"><img src="../images/feature/arrow-right.png" width="32%" height="8%" style="opacity: 0.5;"></img></td>
-                <td  style="padding:1%;"><?php $matrix->showAfMatrix();?></td>
-              </tr>
-            </table>
-           </div>
-        </div>
-        </div>
-    </div>
-</div>
-
+<?php endfor;?>
 
     <footer id="footer" class="midnight-blue">
         <div class="container">
