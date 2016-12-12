@@ -1,26 +1,37 @@
-function createMatrix( rows, cols, defaultValue){
 
-  var arr = [];
+            $(document).ready(function () {
+            var $inputs = $('.resizing-input');
 
-  // Creates all lines:
-  for(var i=0; i < rows; i++){
+                    // Resize based on text if text.length > 0
+            // Otherwise resize based on the placeholder
+                function resizeForText(text) {
+                    var $this = $(this);
+                    if (!text.trim()) {
+                        text = $this.attr('placeholder').trim();
+                    }
+                    var $span = $this.parent().find('span');
+                    $span.text(text);
+                    var $inputSize = $span.width();
+                    $this.css("width", $inputSize);
+                }
 
-      // Creates an empty line
-      arr.push([]);
+                $inputs.find('input').keypress(function (e) {
+                    if (e.which && e.charCode) {
+                        var c = String.fromCharCode(e.keyCode | e.charCode);
+                        var $this = $(this);
+                        resizeForText.call($this, $this.val() + c);
+                    }
+                });
 
-      // Adds cols to the empty line:
-      arr[i].push( new Array(cols));
+                // Backspace event only fires for keyup
+                $inputs.find('input').keyup(function (e) {
+                    if (e.keyCode === 8 || e.keyCode === 46) {
+                        resizeForText.call($(this), $(this).val());
+                    }
+                });
 
-      for(var j=0; j < cols; j++){
-        // Initializes:
-        arr[i][j] = defaultValue;
-      }
-  }
-return arr;
-}
-
-function print () {
-
-  var m = createMatrix(5,5,10);
-
-}
+                $inputs.find('input').each(function () {
+                    var $this = $(this);
+                    resizeForText.call($this, $this.val())
+                });
+                });

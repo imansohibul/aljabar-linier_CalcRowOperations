@@ -14,7 +14,8 @@
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/bootstrap-flex.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
-      <link href="../css/form-basic.css" rel="stylesheet">
+    <link href="../css/form-basic.css" rel="stylesheet">
+
 
     <?php include '../lib/RowOperation.php'; ?>
 
@@ -27,8 +28,11 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../images/ico/apple-touch-icon-57-precomposed.png">
-    <style> body{background-color: #efefef;}</style>
-</head><!--/head-->
+    <style>
+    body{background-color: #efefef;}
+    </style>
+
+    </head><!--/head-->
 <body>
 
 
@@ -53,88 +57,97 @@
             </div>
         </div>
     </header><!--/header-->
+<div class="row-operation">
     <ul>
-       <li><a href="index.html" class="active">Save</a></li>
-       <li><a href="form-update.php">Update</a></li>
-       <li><a href="form-delete.php">Delete</a></li>
-   </ul>
+        <li><a href="index.html" class="active">Linier Equations</a></li>
+        <li><a href="form-update.php">Determinant</a></li>
+        <li><a href="form-delete.php">Invers</a></li>
+    </ul>
+</div>
 
-<div class="create-matrix">
-    <form class="form-basic" method="post" action="#input-matrix">
-        <div class="form-title-row">
-            <h1>Create Matrics</h1>
-        </div>
-
-        <table  align="center">
-          <tr>
-              <td align="center">
-                    <div class="form-row">
-                        <label>
-                            <span>Row</span>
-                            <select name="numb_row">
-                              <?php for ($i=2; $i <10 ; $i++):?>
-                              <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                              <?php endfor;?>
-                            </select>
-                        </label>
-                    </div>
-                </td>
-                <td align="center">
-                        <div class="form-row">
-                            <label>
-                                <span>Column</span>
-                                <select name="numb_column">
-                                    <?php for ($i=2; $i <10 ; $i++):?>
-                                    <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                    <?php endfor;?>
-                                </select>
-                            </label>
-                        </div>
-                </td>
-      </tr>
-      </table>
-      <div align="center">
-      	<button type="submit">Create</button>
-      </div>
-    </form>
-<div>
-
-
-
-        <!-- You only need this form and the form-basic.css -->
-
-<?php
-          $matrix = new RowOperation(3,4,0);
-          $matrix->initMatrix();
-          $matrix->startGaussJordan();
-          $step=$matrix->getStepOperation() ;
+<?php if(isset($_POST['numb_row'])){ session_start(); $_SESSION['row'] = $_POST['numb_row'];}
+      if(isset($_POST['numb_column'])) {$_SESSION['column']= $_POST['numb_column'];}
 ?>
 
-<?php for($i=0; $i < count($step); $i++):?>
-<div class="card-size">
-  <div class="card">
-      <div class="card-header">
-          <h5 class="card-title text-sm-center"><?php $counter=$i+1;echo 'STEP '.$counter ;?></h5>
+<div class="container">
+<div class="card text-xs-center">
+  <div class="card-header">
+    Row Operations 
+  </div>
+  <div class="card-block">
+    <h4 class="card-title">Input Matrics</h4>
+    <p class="card-text">		
+		<form class="form-inline" method="post" action="row-operation-result.php">
+        <table class="matrix" align="center">
+          <?php for ($i=0; $i < $_SESSION['row']; $i++):?>
+            <tr>
+                <?php for ($j=0; $j < $_SESSION['column']; $j++) :?>
+                  <td>
+					<div class="form-group">
+						
+							<input type="textbox" name="matrix[<?php echo $i;?>][<?php echo $j;?>]" placeholder="0">
+	
+					</div>
+                  </td>
+                <?php endfor;?>
+            </tr>
+          <?php endfor;?>
+        </table>
+
+      <div align="center">
+      	<button  class="btn-primary" type="submit">Go !</button>
       </div>
-      <div class="card-block">
-        <div class="card-title text-sm-center">
-            <strong><?php echo $step[$i]->toString();?></strong>
-        </div>
-        <div class="row">
-            <div class="col-xs">
-            <table width="100%">
-              <tr>
-                <td  style="padding:1%;"><?php $step[$i]->showBfMatrix();?> </td>
-                <td  width="20%"  class="text-sm-center"><img src="../images/feature/arrow-right.png" width="32%" height="8%" style="opacity: 0.5;"></img></td>
-                <td  style="padding:1%;"><?php $step[$i]->showAfMatrix();?></td>
-              </tr>
-            </table>
-           </div>
-        </div>
-        </div>
-    </div>
+    </form>		
+	</p>
+  </div>
 </div>
-<?php endfor;?>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<div class="row-operation">
+    
+</div>
+<script type="text/javascript">
+              $(document).ready(function() {
+              var $inputs = $('.resizing-input');
+
+              // Resize based on text if text.length > 0
+              // Otherwise resize based on the placeholder
+              function resizeForText(text) {
+                var $this = $(this);
+                if (!text.trim()) {
+                  text = $this.attr('placeholder').trim();
+                }
+                var $span = $this.parent().find('span');
+                $span.text(text);
+                var $inputSize = $span.width();
+                $this.css("width", $inputSize);
+              }
+
+              $inputs.find('input').keypress(function(e) {
+                if (e.which && e.charCode) {
+                  var c = String.fromCharCode(e.keyCode | e.charCode);
+                  var $this = $(this);
+                  resizeForText.call($this, $this.val() + c);
+                }
+              });
+
+              // Backspace event only fires for keyup
+              $inputs.find('input').keyup(function(e) {
+                if (e.keyCode === 8 || e.keyCode === 46) {
+                  resizeForText.call($(this), $(this).val());
+                }
+              });
+
+              $inputs.find('input').each(function() {
+                var $this = $(this);
+                resizeForText.call($this, $this.val())
+              });
+            });
+    </script>
+
 
     <footer id="footer" class="midnight-blue">
         <div class="container">
@@ -153,9 +166,7 @@
             </div>
         </div>
     </footer><!--/#footer-->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.prettyPhoto.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/row-operation.js"></script>
+
 </body>
 </html>

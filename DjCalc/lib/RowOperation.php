@@ -9,8 +9,9 @@
     private $row;
     private $column;
     private $matrix;
-		private $pivot;
-		private $step= array();
+	private $initMatrix;
+	private $pivot;
+	private $step= array();
 
 
     public function __construct($size_row,$size_column,$_pivot) {
@@ -63,9 +64,9 @@
 		}
 
 		public function hasPivot() {
-			
+
 			if(isset($this->matrix[$this->pivot][$this->pivot])) {
-					
+
 					if($this->matrix[$this->pivot][$this->pivot] == 0) {
 					for($i=$this->pivot+1; $i < $this->row; $i++) {
 						if($this->matrix[$i][$this->pivot] != 0) {
@@ -80,7 +81,7 @@
 			} else {
 				return false;
 			}
-				
+
 		}
 
 		public function choosePivot() {
@@ -167,6 +168,16 @@
 			$this->pivot++;
 		}
 
+    public function setMatrix($mat) {
+        $this->matrix= $mat;
+		$this->initMatrix=$mat;
+		
+    }
+	
+	public function getInitMatrix() {
+		return $this->initMatrix;	
+	}
+	
 		public function setRow($size_row) {
            $this->row = $size_row;
 		}
@@ -195,13 +206,14 @@
 		public function getStepOperation() {
 			return $this->step;
 		}
-		
+
 		public function showMatrix() {
 
             echo '<table align="center" class="matrix">';
 			for($i=0; $i < $this->row; $i++) {
 				echo '<tr>';
 				for($j=0; $j<$this->column; $j++) {
+					
 					echo '<td>'.$this->matrix[$i][$j].'</td>';
 				}
 				echo '</tr>';
@@ -210,7 +222,7 @@
             echo '</table>';
 
 		}
-		
+
 		public function printMatrix($_mat) {
 
             echo '<table align="center" class="matrix">';
@@ -225,7 +237,7 @@
             echo '</table>';
 
 		}
-
+		
 
 
   }

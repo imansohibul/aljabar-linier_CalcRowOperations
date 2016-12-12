@@ -14,7 +14,8 @@
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/bootstrap-flex.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
-      <link href="../css/form-basic.css" rel="stylesheet">
+    <link href="../css/form-basic.css" rel="stylesheet">
+
 
     <?php include '../lib/RowOperation.php'; ?>
 
@@ -53,14 +54,17 @@
             </div>
         </div>
     </header><!--/header-->
+<div class="row-operation">
     <ul>
-       <li><a href="index.html" class="active">Save</a></li>
-       <li><a href="form-update.php">Update</a></li>
-       <li><a href="form-delete.php">Delete</a></li>
-   </ul>
+        <li><a href="index.html" class="active">Linier Equations</a></li>
+        <li><a href="form-update.php" >Determinant</a></li>
+        <li><a href="form-delete.php">Invers</a></li>
+    </ul>
+</div>
+
 
 <div class="create-matrix">
-    <form class="form-basic" method="post" action="#input-matrix">
+    <form class="form-basic" method="post" action="row-operation-input.php">
         <div class="form-title-row">
             <h1>Create Matrics</h1>
         </div>
@@ -72,7 +76,7 @@
                         <label>
                             <span>Row</span>
                             <select name="numb_row">
-                              <?php for ($i=2; $i <10 ; $i++):?>
+                              <?php for ($i=2; $i <= 22 ; $i++):?>
                               <option value="<?php echo $i;?>"><?php echo $i;?></option>
                               <?php endfor;?>
                             </select>
@@ -84,7 +88,7 @@
                             <label>
                                 <span>Column</span>
                                 <select name="numb_column">
-                                    <?php for ($i=2; $i <10 ; $i++):?>
+                                    <?php for ($i=2; $i <= 6; $i++):?>
                                     <option value="<?php echo $i;?>"><?php echo $i;?></option>
                                     <?php endfor;?>
                                 </select>
@@ -97,44 +101,7 @@
       	<button type="submit">Create</button>
       </div>
     </form>
-<div>
-
-
-
-        <!-- You only need this form and the form-basic.css -->
-
-<?php
-          $matrix = new RowOperation(3,4,0);
-          $matrix->initMatrix();
-          $matrix->startGaussJordan();
-          $step=$matrix->getStepOperation() ;
-?>
-
-<?php for($i=0; $i < count($step); $i++):?>
-<div class="card-size">
-  <div class="card">
-      <div class="card-header">
-          <h5 class="card-title text-sm-center"><?php $counter=$i+1;echo 'STEP '.$counter ;?></h5>
-      </div>
-      <div class="card-block">
-        <div class="card-title text-sm-center">
-            <strong><?php echo $step[$i]->toString();?></strong>
-        </div>
-        <div class="row">
-            <div class="col-xs">
-            <table width="100%">
-              <tr>
-                <td  style="padding:1%;"><?php $step[$i]->showBfMatrix();?> </td>
-                <td  width="20%"  class="text-sm-center"><img src="../images/feature/arrow-right.png" width="32%" height="8%" style="opacity: 0.5;"></img></td>
-                <td  style="padding:1%;"><?php $step[$i]->showAfMatrix();?></td>
-              </tr>
-            </table>
-           </div>
-        </div>
-        </div>
-    </div>
 </div>
-<?php endfor;?>
 
     <footer id="footer" class="midnight-blue">
         <div class="container">

@@ -51,3 +51,60 @@
 #small-string {
   font-size: 0pt;
 }
+
+.create-matrix {
+padding-top: auto;
+padding-bottom: 140px;
+}
+
+.row-operation {
+    margin:0 auto;
+    margin-bottom: 80px;
+
+}
+
+.row-operation ul {
+    list-style: none;
+    border-bottom: 1px solid #EAEAEA;
+    background-color: #FFF;
+    padding: 20px;
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 75px;
+}
+
+.row-operation ul a{
+    text-decoration: none;
+    color: #FFF;
+    text-align: left;
+    background-color: #BCB8C2;
+    padding: 10px 16px;
+    border-radius: 2px;
+    opacity: 0.8;
+    font-size: 16px;
+    display: inline-block;
+    margin: 4px;
+    line-height: 1;
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+.row-operation ul li a.active{
+    background-color: #F05283;
+    pointer-events: none;
+}
+
+.row-operation ul li a:hover {
+    opacity: 1;
+}
+
+
+.row-operation ul li{
+    display: inline-block;
+}
+
+.row-operation input[type=text] {
+  width:40px;
+  height:40px;
+}

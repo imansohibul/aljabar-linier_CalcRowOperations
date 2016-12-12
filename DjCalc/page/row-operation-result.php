@@ -14,7 +14,8 @@
     <link href="../css/main.css" rel="stylesheet">
     <link href="../css/bootstrap-flex.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
-      <link href="../css/form-basic.css" rel="stylesheet">
+    <link href="../css/form-basic.css" rel="stylesheet">
+
 
     <?php include '../lib/RowOperation.php'; ?>
 
@@ -53,65 +54,49 @@
             </div>
         </div>
     </header><!--/header-->
+<div class="row-operation">
     <ul>
-       <li><a href="index.html" class="active">Save</a></li>
-       <li><a href="form-update.php">Update</a></li>
-       <li><a href="form-delete.php">Delete</a></li>
-   </ul>
-
-<div class="create-matrix">
-    <form class="form-basic" method="post" action="#input-matrix">
-        <div class="form-title-row">
-            <h1>Create Matrics</h1>
-        </div>
-
-        <table  align="center">
-          <tr>
-              <td align="center">
-                    <div class="form-row">
-                        <label>
-                            <span>Row</span>
-                            <select name="numb_row">
-                              <?php for ($i=2; $i <10 ; $i++):?>
-                              <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                              <?php endfor;?>
-                            </select>
-                        </label>
-                    </div>
-                </td>
-                <td align="center">
-                        <div class="form-row">
-                            <label>
-                                <span>Column</span>
-                                <select name="numb_column">
-                                    <?php for ($i=2; $i <10 ; $i++):?>
-                                    <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                    <?php endfor;?>
-                                </select>
-                            </label>
-                        </div>
-                </td>
-      </tr>
-      </table>
-      <div align="center">
-      	<button type="submit">Create</button>
-      </div>
-    </form>
-<div>
-
-
-
-        <!-- You only need this form and the form-basic.css -->
+        <li><a href="index.html" class="active">Linier Equations</a></li>
+        <li><a href="form-update.php">Determinant</a></li>
+        <li><a href="form-delete.php">Invers</a></li>
+    </ul>
+</div>
 
 <?php
-          $matrix = new RowOperation(3,4,0);
-          $matrix->initMatrix();
-          $matrix->startGaussJordan();
-          $step=$matrix->getStepOperation() ;
+            session_start();
+          if(isset($_POST['matrix'])) {
+            $input = $_POST['matrix'];
+          }
+         $matrix = new RowOperation($_SESSION['row'],$_SESSION['column'],0);
+         $matrix->setMatrix($input);
+         $matrix->startGaussJordan();
+        $step=$matrix->getStepOperation() ;
 ?>
 
+<div class="card-size" id="result">
+  <div class="card">
+      <div class="card-header">
+          <h5 class="card-title text-sm-center"> RESULTS </h5>
+      </div>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-xs">
+          <table width="100%">
+            <tr>
+              <td  style="padding:1%;"><?php $matrix->printMatrix($matrix->getInitMatrix());?> </td>
+              <td  width="20%"  class="text-sm-center"><img src="../images/feature/arrow-right.png" width="32%" height="8%" style="opacity: 0.5;"></img></td>
+              <td  style="padding:1%;"><?php $matrix->showMatrix();?></td>
+            </tr>
+          </table>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
 <?php for($i=0; $i < count($step); $i++):?>
-<div class="card-size">
+<div class="card-size" id="result">
   <div class="card">
       <div class="card-header">
           <h5 class="card-title text-sm-center"><?php $counter=$i+1;echo 'STEP '.$counter ;?></h5>
@@ -135,6 +120,8 @@
     </div>
 </div>
 <?php endfor;?>
+
+
 
     <footer id="footer" class="midnight-blue">
         <div class="container">
